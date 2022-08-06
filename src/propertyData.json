@@ -22,7 +22,7 @@
     "price":"1300",
     "propertyType":"Plot",
     "address":"Woodland street, New York",
-    "isPopular":false,
+    "isPopular":true,
     "image":"property.webp",
     "isLiked":false,
     "beds":"3",
