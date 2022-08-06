@@ -1,8 +1,8 @@
-:root{
-    --primary:#7065ee;
-    --primary-pale:#eae6fd;
-}
 #brand{
     font-size: 1.5em;
     font-weight: bold;
+}
+.nav-link.active{
+    color: var(--primary) !important;
+    background-color: var(--primary-pale);
 }

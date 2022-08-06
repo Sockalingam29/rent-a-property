@@ -1,0 +1,16 @@
+.propertyImg{
+    object-fit:cover;
+}
+.price{
+    color: var(--primary);
+}
+.amenities-img{
+    max-width: 1.5rem;
+    vertical-align: bottom;
+}
+.like-icon{
+    position: absolute;
+    right:1rem;
+    max-width: 2.5rem;
+    cursor: pointer;
+}

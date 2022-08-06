@@ -1,11 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import propertyData from '../../propertyData.json';
 
 import './Filter.css'
 
-export default function Filter() {
+export default function Filter({properties,setProperties}) {
+  const [filters, setFilters] = useState({
+    location: '',
+    moveInDate: '',
+    price: 'All',
+    propertyType: 'Any'
+  });
+
+  const filterHandler = (e)=>{
+    setProperties(propertyData);
+    e.preventDefault();
+    console.log(filters);
+    if(filters.location !== ''){
+      properties=properties.filter((property)=>{
+        return property.location === filters.location;
+        })
+    }
+    if(filters.moveInDate !== ''){
+      properties=properties.filter((property)=>{
+        console.log(property.available<=filters.moveInDate);
+        return new Date(Date.parse(property.available)) <= new Date(Date.parse(filters.moveInDate));
+        })
+    }
+    if(filters.price!=="All"){
+      let range=filters.price.split('-');
+      properties=properties.filter((property)=>{
+          return parseInt(property.price)>=parseInt(range[0]) && parseInt(property.price)<parseInt(range[1]);
+      })
+    }
+    if(filters.propertyType!=="Any"){
+      properties=properties.filter((property)=>{
+        return property.propertyType === filters.propertyType;
+      })
+    }
+    setProperties(properties);
+    setFilters({
+      location: '',
+      moveInDate: '',
+      price: 'All',
+      propertyType: 'Any'
+    })
+  }
   return (
     <>
         <Container className="my-4 d-flex justify-content-between align-items-baseline">
@@ -17,10 +59,10 @@ export default function Filter() {
 
         <Container>
         
-            <Form id="filter" className="d-md-flex justify-content-evenly align-items-center flex-wrap bg-white">                
+            <Form id="filter" onSubmit={filterHandler} className="d-md-flex justify-content-evenly align-items-center flex-wrap bg-white">                
               <Form.Group className="mb-lg-3 p-3" controlId="location">
                 <Form.Label>Location</Form.Label>
-                <Form.Control onClick={(e)=>e.target.select()} list="locationOptions" default="New York" placeholder="Location" />
+                <Form.Control onClick={(e)=>e.target.select()} value={filters['location']} onChange={(e)=>setFilters({...filters,location:e.target.value})} list="locationOptions" default="New York" placeholder="Location" />
                 <datalist id="locationOptions">
                   <option value="San Francisco" />
                   <option value="New York"/>
@@ -33,20 +75,20 @@ export default function Filter() {
               <div className="d-none vr d-lg-block my-4"></div>
 
               <Form.Group className="mb-lg-3 p-3" controlId="moveInDate">
-                <Form.Label>When</Form.Label>
-                <Form.Control type="date" min={new Date().toISOString().split('T')[0]} placeholder="Select check-in date" />
+                <Form.Label>Move in before</Form.Label>
+                <Form.Control type="date" value={filters['moveInDate']} onChange={(e)=>setFilters({...filters,moveInDate:e.target.value})} min={new Date().toISOString().split('T')[0]} placeholder="Select check-in date" />
               </Form.Group>
 
               <div className="d-none vr d-lg-block my-4"></div>
 
               <Form.Group className="mb-lg-3 p-3" controlId="price">
                 <Form.Label>Price</Form.Label>
-                <Form.Select>
-                  <option>Any</option>
-                  <option value="1">min-$500</option>
-                  <option value="2">$500-$2500</option>
-                  <option value="3">$2500-$5000</option>
-                  <option value="4">$5000-max</option>
+                <Form.Select value={filters['price']} onChange={(e)=>setFilters({...filters,price:e.target.value})}>
+                  <option value="All">All</option>
+                  <option value="0-500">min-$500</option>
+                  <option value="500-2500">$500-$2500</option>
+                  <option value="2500-5000">$2500-$5000</option>
+                  <option value="5000-10000">$5000-$10000</option>
                 </Form.Select>
               </Form.Group>
 
@@ -54,12 +96,12 @@ export default function Filter() {
 
               <Form.Group className="mb-lg-3 p-3" controlId="propertyType">
                 <Form.Label>Property Type</Form.Label>
-                <Form.Select>
-                  <option>Any</option>
-                  <option value="1">Houses</option>
-                  <option value="2">Flats</option>
-                  <option value="3">Plots</option>
-                  <option value="4">Commercial</option>
+                <Form.Select value={filters['propertyType']} onChange={(e)=>setFilters({...filters,propertyType:e.target.value})}>
+                  <option value="Any">Any</option>
+                  <option value="House">Houses</option>
+                  <option value="Flat">Flats</option>
+                  <option value="Plot">Plots</option>
+                  <option value="Commercial">Commercial</option>
                 </Form.Select>
               </Form.Group>
 
