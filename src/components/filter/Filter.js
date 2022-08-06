@@ -7,6 +7,7 @@ import propertyData from '../../propertyData.json';
 import './Filter.css'
 
 export default function Filter({properties,setProperties}) {
+  let filteredProperties=[];
   const [filters, setFilters] = useState({
     location: '',
     moveInDate: '',
@@ -15,38 +16,31 @@ export default function Filter({properties,setProperties}) {
   });
 
   const filterHandler = (e)=>{
-    setProperties(propertyData);
     e.preventDefault();
-    console.log(filters);
+    filteredProperties=propertyData;
+    setProperties(propertyData);
     if(filters.location !== ''){
-      properties=properties.filter((property)=>{
+      filteredProperties=filteredProperties.filter((property)=>{
         return property.location === filters.location;
         })
     }
     if(filters.moveInDate !== ''){
-      properties=properties.filter((property)=>{
-        console.log(property.available<=filters.moveInDate);
+      filteredProperties=filteredProperties.filter((property)=>{
         return new Date(Date.parse(property.available)) <= new Date(Date.parse(filters.moveInDate));
         })
     }
     if(filters.price!=="All"){
       let range=filters.price.split('-');
-      properties=properties.filter((property)=>{
+      filteredProperties=filteredProperties.filter((property)=>{
           return parseInt(property.price)>=parseInt(range[0]) && parseInt(property.price)<parseInt(range[1]);
       })
     }
     if(filters.propertyType!=="Any"){
-      properties=properties.filter((property)=>{
+      filteredProperties=filteredProperties.filter((property)=>{
         return property.propertyType === filters.propertyType;
       })
     }
-    setProperties(properties);
-    setFilters({
-      location: '',
-      moveInDate: '',
-      price: 'All',
-      propertyType: 'Any'
-    })
+    setProperties(filteredProperties);
   }
   return (
     <>
@@ -96,7 +90,7 @@ export default function Filter({properties,setProperties}) {
 
               <Form.Group className="mb-lg-3 p-3" controlId="propertyType">
                 <Form.Label>Property Type</Form.Label>
-                <Form.Select value={filters['propertyType']} onChange={(e)=>setFilters({...filters,propertyType:e.target.value})}>
+                <Form.Select value={filters['propertyType']} onInput={(e)=>setFilters({...filters,propertyType:e.target.value})}>
                   <option value="Any">Any</option>
                   <option value="House">Houses</option>
                   <option value="Flat">Flats</option>
