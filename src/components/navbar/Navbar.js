@@ -9,7 +9,6 @@ import logo from '../../images/logo.png'
 
 
 export default function NavComponent() {
-  const [toggle, setToggle] = useState(false);
 
   return (
     <Navbar bg="light" variant="light" expand="md">
@@ -25,7 +24,7 @@ export default function NavComponent() {
         />{' '}
         <span>Estatery</span>
       </Navbar.Brand>
-      <Navbar.Toggle onClick={()=>setToggle(!toggle)} aria-controls="basic-navbar-nav" />
+      <Navbar.Toggle  aria-controls="basic-navbar-nav" />
       
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -51,7 +50,7 @@ export default function NavComponent() {
             
 
           </Nav>
-          <div className="d-sm-flex flex-column d-md-block" id="nav-btn">
+          <div className="d-flex flex-column d-md-block" id="nav-btn">
             <Button className="my-1" variant="outline-primary">Log in</Button>
             <Button className="my-1 mx-md-2 mx-lg-3">Sign up</Button>
           </div>
