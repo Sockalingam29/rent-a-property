@@ -13,7 +13,7 @@ export default function NavComponent() {
   return (
     <Navbar bg="light" variant="light" expand="md">
     <Container>
-      <Navbar.Brand id="brand" href="#home">
+      <Navbar.Brand id="brand" onClick={()=>window.location.reload()} href="#home">
         <img
           id='logo'
           alt="Logo"
@@ -28,7 +28,7 @@ export default function NavComponent() {
       
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#rent" className="link-active">Rent</Nav.Link>
+            <Nav.Link href="#rent" onClick={()=>window.location.reload()} className="link-active">Rent</Nav.Link>
             <Nav.Link href="#buy">Buy</Nav.Link>
             <Nav.Link href="#sell">Sell</Nav.Link>
 
