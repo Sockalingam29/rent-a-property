@@ -102,7 +102,7 @@ export default function Filter({properties,setProperties}) {
               <div className="d-none vr d-lg-block my-4"></div>
 
               <div className="p-3">
-                <Button variant="primary" type="submit">
+                <Button className="px-4 py-3" variant="primary" type="submit">
                   Submit
                 </Button>
               </div>

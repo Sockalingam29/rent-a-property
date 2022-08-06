@@ -1,5 +1,4 @@
 import React from 'react'
-import propertyData from '../../propertyData.json'
 import CardItem from './CardItem'
 import Container from 'react-bootstrap/Container'
 
