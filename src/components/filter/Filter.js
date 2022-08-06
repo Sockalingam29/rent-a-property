@@ -7,6 +7,7 @@ import propertyData from '../../propertyData.json';
 import './Filter.css'
 
 export default function Filter({properties,setProperties}) {
+  const[mobileFilterActive,setmobileFilterActive]=useState(false);
   let filteredProperties=[];
   const [filters, setFilters] = useState({
     location: '',
@@ -17,6 +18,7 @@ export default function Filter({properties,setProperties}) {
 
   const filterHandler = (e)=>{
     e.preventDefault();
+    setmobileFilterActive(false);
     filteredProperties=propertyData;
     setProperties(propertyData);
     if(filters.location !== ''){
@@ -51,9 +53,13 @@ export default function Filter({properties,setProperties}) {
             </div>
         </Container>
 
+        <Container onClick={()=>setmobileFilterActive(!mobileFilterActive)} id="mobile-filter-container" className=" d-md-none my-4">
+          <Button id="mobile-filter" className= "bg-white d-block" variant="outline-primary">Filter Results</Button>
+        </Container>    
+        
         <Container>
         
-            <Form id="filter" onSubmit={filterHandler} className="d-md-flex justify-content-evenly align-items-center flex-wrap bg-white">                
+            <Form id="filter" onSubmit={filterHandler} className={mobileFilterActive ? "d-md-flex justify-content-evenly align-items-center flex-wrap bg-white " : "d-md-flex justify-content-evenly align-items-center flex-wrap bg-white d-none"}>                
               <Form.Group className="mb-lg-3 p-3" controlId="location">
                 <Form.Label>Location</Form.Label>
                 <Form.Control onClick={(e)=>e.target.select()} value={filters['location']} onChange={(e)=>setFilters({...filters,location:e.target.value})} list="locationOptions" default="New York" placeholder="Location" />

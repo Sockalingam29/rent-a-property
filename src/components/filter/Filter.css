@@ -6,3 +6,10 @@
     border: 1px solid white;
     border-radius: 15px;
 }
+#mobile-filter{
+    color:var(--primary);
+    width: 100%;
+}
+#mobile-filter-container{
+    width:90%
+}
