@@ -1,0 +1,11 @@
+body{
+    background-color: #f7f6fc;
+}
+#heading{
+    font-size: 2rem;
+    font-weight:bold;
+}
+#filter{
+    border: 1px solid white;
+    border-radius: 15px;
+}
