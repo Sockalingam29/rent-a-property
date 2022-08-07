@@ -14,11 +14,8 @@ export default function CardItem({property}) {
   const [isLiked, setLiked] = useState(property.isLiked);
   return (
     <Card className="mx-2 my-4" style={{ width: '22rem' }}>
-    <div><Card.Img className='propertyImg' variant="top" src={img} />
-    <Card.ImgOverlay>
+    <Card.Img className='propertyImg' variant="top" src={img} />
     <Badge className={property.isPopular ? "popularBadge" : "d-none"} ><img className="popularBadgeIcon me-1 " src={trending} alt=""/>Popular</Badge>
-    </Card.ImgOverlay>
-    </div>
     <Card.Body>
       <img className="like-icon" src={isLiked ? likeFill : likeOutline} onClick={()=>setLiked(!isLiked)} alt="like"  />
       <Card.Title>
